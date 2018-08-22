@@ -1509,7 +1509,7 @@ void Tracking::Reset()
     {
         mpViewer->RequestStop();
         while(!mpViewer->isStopped())
-            std::this_thread::sleep_for(std::chrono::milliseconds(int(3000)));
+            std::this_thread::sleep_for(std::chrono::microseconds(int(3000)));
     }
 
     // Reset Local Mapping
