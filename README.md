@@ -1,3 +1,12 @@
+Fork from the [original code](https://github.com/raulmur/ORB_SLAM2) with fix to compile on newer environment.
+ 
+ - support Opencv 4.0 pre (compatibility with 2.0/3.0 may be brocken)
+ - tested on Ubuntu 18.04
+ 
+------------------
+
+Original readme:
+
 # ORB-SLAM2
 **Authors:** [Raul Mur-Artal](http://webdiis.unizar.es/~raulmur/), [Juan D. Tardos](http://webdiis.unizar.es/~jdtardos/), [J. M. M. Montiel](http://webdiis.unizar.es/~josemari/) and [Dorian Galvez-Lopez](http://doriangalvez.com/) ([DBoW2](https://github.com/dorian3d/DBoW2))
 
