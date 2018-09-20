@@ -120,3 +120,11 @@ add_executable(mono_euroc
 Examples/Monocular/mono_euroc.cc)
 target_link_libraries(mono_euroc ${PROJECT_NAME})
 
+
+file(GLOB VIDEO_RUNNER_SOURCES
+    Examples/pos_extraction/*.h
+    Examples/pos_extraction/*.cpp
+)
+
+add_executable(video_runner ${VIDEO_RUNNER_SOURCES})
+target_link_libraries(video_runner ${PROJECT_NAME} itpp)

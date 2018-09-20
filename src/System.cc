@@ -402,8 +402,10 @@ void System::SaveKeyFrameTrajectoryTUM(const string &filename)
        // pKF->SetPose(pKF->GetPose()*Two);
 
         if(pKF->isBad())
+        {
+            std::cout << "Frame " << i << " is bad" << std::endl;
             continue;
-
+        }
         cv::Mat R = pKF->GetRotation().t();
         vector<float> q = Converter::toQuaternion(R);
         cv::Mat t = pKF->GetCameraCenter();
