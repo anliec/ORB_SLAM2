@@ -69,27 +69,27 @@ std::vector<BoundingBox> readBoundingBoxes(const std::string &BoundingBoxFilePat
 std::pair<cv::Mat, cv::Mat> readCalibrationMatrix(const std::string &configFilePath)
 {
     cv::FileStorage fSettings(configFilePath, cv::FileStorage::READ);
-    float fx = fSettings["Camera.fx"];
-    float fy = fSettings["Camera.fy"];
-    float cx = fSettings["Camera.cx"];
-    float cy = fSettings["Camera.cy"];
+    double fx = fSettings["Camera.fx"];
+    double fy = fSettings["Camera.fy"];
+    double cx = fSettings["Camera.cx"];
+    double cy = fSettings["Camera.cy"];
 
-    cv::Mat K = cv::Mat::eye(3,3,CV_32F);
-    K.at<float>(0,0) = fx;
-    K.at<float>(1,1) = fy;
-    K.at<float>(0,2) = cx;
-    K.at<float>(1,2) = cy;
+    cv::Mat K = cv::Mat::eye(3,3,CV_64F);
+    K.at<double>(0,0) = fx;
+    K.at<double>(1,1) = fy;
+    K.at<double>(0,2) = cx;
+    K.at<double>(1,2) = cy;
 
-    cv::Mat DistCoef(4,1,CV_32F);
-    DistCoef.at<float>(0) = fSettings["Camera.k1"];
-    DistCoef.at<float>(1) = fSettings["Camera.k2"];
-    DistCoef.at<float>(2) = fSettings["Camera.p1"];
-    DistCoef.at<float>(3) = fSettings["Camera.p2"];
-    const float k3 = fSettings["Camera.k3"];
+    cv::Mat DistCoef(4,1,CV_64F);
+    DistCoef.at<double>(0) = fSettings["Camera.k1"];
+    DistCoef.at<double>(1) = fSettings["Camera.k2"];
+    DistCoef.at<double>(2) = fSettings["Camera.p1"];
+    DistCoef.at<double>(3) = fSettings["Camera.p2"];
+    const double k3 = fSettings["Camera.k3"];
     if(k3!=0)
     {
         DistCoef.resize(5);
-        DistCoef.at<float>(4) = k3;
+        DistCoef.at<double>(4) = k3;
     }
 
     std::pair<cv::Mat, cv::Mat> ret;

@@ -89,6 +89,7 @@ int main(int argc, char **argv)
     //==================================================//
 
     std::ofstream out(argv2 + "cam.txt");
+    out << std::fixed << std::setprecision(8);
     out << "X,Y,Z,rX,rY,rZ,id" << std::endl;
     int i = -1;
     for(cv::Mat& pose : poses){
@@ -98,21 +99,21 @@ int main(int argc, char **argv)
         double sy = std::sqrt(pose.at<double>(2,1) * pose.at<double>(2,1) +  pose.at<double>(2,2) * pose.at<double>(2,2) );
         double thetaX, thetaY, thetaZ;
         if(sy > 1e-6){ // if rotation matrix is not singular
-            thetaX = std::atan2(pose.at<float>(2,1), pose.at<float>(2,2));
-            thetaY = std::atan2(-pose.at<float>(2,0), sy);
-            thetaZ = std::atan2(pose.at<float>(1,0), pose.at<float>(0,0));
+            thetaX = std::atan2(pose.at<double>(2,1), pose.at<double>(2,2));
+            thetaY = std::atan2(-pose.at<double>(2,0), sy);
+            thetaZ = std::atan2(pose.at<double>(1,0), pose.at<double>(0,0));
         }
         else{
             thetaX = std::atan2(-pose.at<double>(1,2), pose.at<double>(1,1));
             thetaY = std::atan2(-pose.at<double>(2,0), sy);
             thetaZ = 0;
         }
-        out << pose.at<float>(0, 3) << "," << pose.at<float>(1, 3) << "," << pose.at<float>(2, 3) << "," << thetaX << "," << thetaY << "," << thetaZ << "," << i << std::endl;
+        out << pose.at<double>(0, 3) << "," << pose.at<double>(1, 3) << "," << pose.at<double>(2, 3) << "," << thetaX << "," << thetaY << "," << thetaZ << "," << i << std::endl;
     }
 
     out.close();
 
-    out = std::ofstream(argv2 + "ray.txt");
+    out.open(argv2 + "ray.txt");
     out << "X,Y,Z,cX,cY,cZ,id" << std::endl;
     i = -1;
     for(SignPointer& p : signPointers){
@@ -123,7 +124,7 @@ int main(int argc, char **argv)
 
     out.close();
 
-    out = std::ofstream(argv2 + "pos.txt");
+    out.open(argv2 + "pos.txt");
     out << "X,Y,Z,id" << std::endl;
     for(SignCoordinate& c : signPos){
         out << c.p[0] << "," << c.p[1] << "," << c.p[2] << "," << c.signId << std::endl;
@@ -131,9 +132,23 @@ int main(int argc, char **argv)
 
     out.close();
 
-    out = std::ofstream(argv2 + "worldPos.txt");
+    out.open(argv2 + "worldPos.txt");
     out << "lat,lon,alt,id" << std::endl;
     for(CoordGPS c : signWorldPos){
+        out << c.lat << "," << c.lon << "," << c.alt << "," << c.frameId << std::endl;
+    }
+
+    out.close();
+
+    out.open(argv2 + "worldCamPos.txt");
+    out << "lat,lon,alt,id" << std::endl;
+    std::vector<SignCoordinate> coord;
+    for(const cv::Mat &m : poses){
+        if(m.empty()) continue;
+        coord.emplace_back(coord.size(), m(cv::Rect2i(3,0,1,3)));
+    }
+    std::vector<CoordGPS> camWorldPos = getGlobalCoord(coord, transform);
+    for(CoordGPS c : camWorldPos){
         out << c.lat << "," << c.lon << "," << c.alt << "," << c.frameId << std::endl;
     }
 

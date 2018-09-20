@@ -66,7 +66,7 @@ std::vector<cv::Mat> extract_local_pose_from_images(const std::__cxx11::string &
             exit(1);
         }
 
-        poses.push_back(slam.TrackMonocular(frame, double(frame_number) / fps));
+        poses.push_back(slam.TrackMonocular(frame, double(frame_number) / fps)); // returned matrix type is 32F (float)
 //        std::cout << frame_number << ":" << std::endl << poses[frame_number]  << std::endl;
         frame_number++;
     }
