@@ -44,7 +44,7 @@ int main(int argc, char **argv)
     }    
     std::string argv2 = argv[2];
     std::string configPath = argv2 + "config.yaml";
-    std::string framesPath = argv2 + "images/*.png";
+    std::string framesPath = argv2 + "images/*.jpg";
     std::string bbPath = argv2 + "bb.csv";
     std::string coordPath = argv2 + "coord.csv";
 
