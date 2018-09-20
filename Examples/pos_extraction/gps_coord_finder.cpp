@@ -5,17 +5,20 @@
 cv::Mat findTransformToGlobalCoord(const std::vector<CoordGPS> &worldPoses, const std::vector<cv::Mat> &slamPoses)
 {
     assert(worldPoses.size() == slamPoses.size());
-    Eigen::Matrix3Xd worldPoints, slamPoints;
+    Eigen::Matrix3Xd worldPoints(3,0), slamPoints(3,0);
 
     std::vector<CoordGPS>::const_iterator worldPoint = worldPoses.begin();
     std::vector<cv::Mat>::const_iterator slamPoint = slamPoses.begin();
     for(unsigned i=0; worldPoint!=worldPoses.end() && slamPoint!=slamPoses.end() ; worldPoint++, slamPoint++, i++){
         if(slamPoint->empty()){
+            i--;
             continue;
         }
+        worldPoints.resize(3, i + 1);
         worldPoints(0,i) = worldPoint->lat;
         worldPoints(1,i) = worldPoint->lon;
         worldPoints(2,i) = worldPoint->alt;
+        slamPoints.resize(3, i + 1);
         slamPoints(0,i) = slamPoint->at<double>(0,3);
         slamPoints(1,i) = slamPoint->at<double>(1,3);
         slamPoints(2,i) = slamPoint->at<double>(2,3);
@@ -33,11 +36,12 @@ std::vector<CoordGPS> getGlobalCoord(const std::vector<SignCoordinate> &slamPosi
 {
     std::vector<CoordGPS> worldCoords;
 
-    cv::Mat translation = transform(cv::Rect2i(0,3,3,1)).clone();
+    cv::Mat translation = transform(cv::Rect2i(3,0,1,3)).clone();
     cv::Mat rotation = transform(cv::Rect2i(0,0,3,3)).clone();
 
     for(const SignCoordinate &slamCoord : slamPosition){
-        cv::Mat worldPos = rotation * cv::Mat(slamCoord.p) + translation;
+        cv::Mat p = cv::Mat(slamCoord.p);
+        cv::Mat worldPos = rotation * p + translation;
         worldCoords.emplace_back(worldPos, slamCoord.signId);
     }
 

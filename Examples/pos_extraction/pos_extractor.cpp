@@ -88,7 +88,7 @@ int main(int argc, char **argv)
     // Write results and debug infos                    //
     //==================================================//
 
-    std::ofstream out("cam.txt");
+    std::ofstream out(argv2 + "cam.txt");
     out << "X,Y,Z,rX,rY,rZ,id" << std::endl;
     int i = -1;
     for(cv::Mat& pose : poses){
@@ -112,7 +112,7 @@ int main(int argc, char **argv)
 
     out.close();
 
-    out = std::ofstream("ray.txt");
+    out = std::ofstream(argv2 + "ray.txt");
     out << "X,Y,Z,cX,cY,cZ,id" << std::endl;
     i = -1;
     for(SignPointer& p : signPointers){
@@ -123,7 +123,7 @@ int main(int argc, char **argv)
 
     out.close();
 
-    out = std::ofstream("pos.txt");
+    out = std::ofstream(argv2 + "pos.txt");
     out << "X,Y,Z,id" << std::endl;
     for(SignCoordinate& c : signPos){
         out << c.p[0] << "," << c.p[1] << "," << c.p[2] << "," << c.signId << std::endl;
@@ -131,7 +131,7 @@ int main(int argc, char **argv)
 
     out.close();
 
-    out = std::ofstream("worldPos.txt");
+    out = std::ofstream(argv2 + "worldPos.txt");
     out << "lat,lon,alt,id" << std::endl;
     for(CoordGPS c : signWorldPos){
         out << c.lat << "," << c.lon << "," << c.alt << "," << c.frameId << std::endl;
