@@ -96,19 +96,19 @@ int main(int argc, char **argv)
         i++;
         if(pose.empty())
             continue;
-        double sy = std::sqrt(pose.at<double>(2,1) * pose.at<double>(2,1) +  pose.at<double>(2,2) * pose.at<double>(2,2) );
+        double sy = std::sqrt(pose.at<float>(2,1) * pose.at<float>(2,1) +  pose.at<float>(2,2) * pose.at<float>(2,2) );
         double thetaX, thetaY, thetaZ;
         if(sy > 1e-6){ // if rotation matrix is not singular
-            thetaX = std::atan2(pose.at<double>(2,1), pose.at<double>(2,2));
-            thetaY = std::atan2(-pose.at<double>(2,0), sy);
-            thetaZ = std::atan2(pose.at<double>(1,0), pose.at<double>(0,0));
+            thetaX = std::atan2(pose.at<float>(2,1), pose.at<float>(2,2));
+            thetaY = std::atan2(-pose.at<float>(2,0), sy);
+            thetaZ = std::atan2(pose.at<float>(1,0), pose.at<float>(0,0));
         }
         else{
-            thetaX = std::atan2(-pose.at<double>(1,2), pose.at<double>(1,1));
-            thetaY = std::atan2(-pose.at<double>(2,0), sy);
+            thetaX = std::atan2(-pose.at<float>(1,2), pose.at<float>(1,1));
+            thetaY = std::atan2(-pose.at<float>(2,0), sy);
             thetaZ = 0;
         }
-        out << pose.at<double>(0, 3) << "," << pose.at<double>(1, 3) << "," << pose.at<double>(2, 3) << "," << thetaX << "," << thetaY << "," << thetaZ << "," << i << std::endl;
+        out << pose.at<float>(0, 3) << "," << pose.at<float>(1, 3) << "," << pose.at<float>(2, 3) << "," << thetaX << "," << thetaY << "," << thetaZ << "," << i << std::endl;
     }
 
     out.close();

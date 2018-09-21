@@ -129,4 +129,12 @@ file(GLOB VIDEO_RUNNER_SOURCES
 )
 
 add_executable(video_runner ${VIDEO_RUNNER_SOURCES})
-target_link_libraries(video_runner ${PROJECT_NAME} itpp)
+target_link_libraries(video_runner ${PROJECT_NAME})
+
+file(GLOB DATASET_RUNNER_SOURCES
+    Examples/dataset_runner/*.h
+    Examples/dataset_runner/*.cpp
+)
+
+add_executable(dataset_runner ${DATASET_RUNNER_SOURCES})
+target_link_libraries(dataset_runner ${PROJECT_NAME})
