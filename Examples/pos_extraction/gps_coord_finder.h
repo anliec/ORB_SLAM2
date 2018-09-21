@@ -9,6 +9,6 @@
 
 cv::Mat findTransformToGlobalCoord(const std::vector<CoordGPS> &worldPoses, const std::vector<cv::Mat> &slamPoses);
 
-std::vector<CoordGPS> getGlobalCoord(const std::vector<SignCoordinate> &slamPosition, const cv::Mat &transform);
+std::vector<SignCoordinate> getGlobalCoord(const std::vector<SignCoordinate> &slamPosition, const cv::Mat &transform);
 
 #endif // GPS_COORD_FINDER_H

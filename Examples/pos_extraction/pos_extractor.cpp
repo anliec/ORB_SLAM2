@@ -147,9 +147,9 @@ int main(int argc, char **argv)
         if(m.empty()) continue;
         coord.emplace_back(coord.size(), m(cv::Rect2i(3,0,1,3)));
     }
-    std::vector<CoordGPS> camWorldPos = getGlobalCoord(coord, transform);
-    for(CoordGPS c : camWorldPos){
-        out << c.lat << "," << c.lon << "," << c.alt << "," << c.frameId << std::endl;
+    std::vector<SignCoordinate> camWorldPos = getGlobalCoord(coord, transform);
+    for(SignCoordinate c : camWorldPos){
+        out << c.p[0] << "," << c.p[1] << "," << c.p[2] << "," << c.signId << std::endl;
     }
 
     out.close();
