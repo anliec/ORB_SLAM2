@@ -82,7 +82,7 @@ int main(int argc, char **argv)
     //==================================================//
 
     cv::Mat transform = findTransformToGlobalCoord(coords, poses);
-    std::vector<CoordGPS> signWorldPos = getGlobalCoord(signPos, transform);
+    std::vector<SignCoordinate> signWorldPos = getGlobalCoord(signPos, transform);
 
     //==================================================//
     // Write results and debug infos                    //
@@ -134,8 +134,8 @@ int main(int argc, char **argv)
 
     out.open(argv2 + "worldPos.txt");
     out << "lat,lon,alt,id" << std::endl;
-    for(CoordGPS c : signWorldPos){
-        out << c.lat << "," << c.lon << "," << c.alt << "," << c.frameId << std::endl;
+    for(SignCoordinate c : signWorldPos){
+        out << c.p[0] << "," << c.p[1] << "," << c.p[2] << "," << c.signId << ',' << c.rayUsed << std::endl;
     }
 
     out.close();

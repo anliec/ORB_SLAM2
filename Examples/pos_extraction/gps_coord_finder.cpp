@@ -74,9 +74,9 @@ cv::Mat findTransformToGlobalCoord(const std::vector<CoordGPS> &worldPoses, cons
     return ret;
 }
 
-std::vector<CoordGPS> getGlobalCoord(const std::vector<SignCoordinate> &slamPosition, const cv::Mat &transform)
+std::vector<SignCoordinate> getGlobalCoord(const std::vector<SignCoordinate> &slamPosition, const cv::Mat &transform)
 {
-    std::vector<CoordGPS> worldCoords;
+    std::vector<SignCoordinate> worldCoords;
 
     cv::Mat translation = transform(cv::Rect2i(3,0,1,3)).clone();
     translation.convertTo(translation, CV_64F);
@@ -87,7 +87,7 @@ std::vector<CoordGPS> getGlobalCoord(const std::vector<SignCoordinate> &slamPosi
         cv::Mat p = cv::Mat(slamCoord.p);
         p.convertTo(p, CV_64F);
         cv::Mat worldPos = rotation * p + translation;
-        worldCoords.emplace_back(worldPos, slamCoord.signId);
+        worldCoords.emplace_back(slamCoord.signId, worldPos, slamCoord.rayUsed);
     }
 
     return worldCoords;
