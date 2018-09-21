@@ -45,7 +45,7 @@ std::vector<SignCoordinate> findSignCoordinates(const std::vector<SignPointer> &
 
         cv::Mat x = a.inv() * b;
 
-        signPos.emplace_back(signId, x);
+        signPos.emplace_back(signId, x, signRays.size());
     }
 
     return signPos;

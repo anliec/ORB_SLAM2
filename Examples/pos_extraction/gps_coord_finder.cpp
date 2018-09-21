@@ -8,8 +8,6 @@ cv::Mat findTransformToGlobalCoord(const std::vector<CoordGPS> &worldPoses, cons
 
     std::vector<std::pair<Eigen::Vector3d,Eigen::Vector3d>> pointsPaires;
 
-    std::cout << std::endl << slamPoses.back().type() << std::endl;
-
     std::vector<CoordGPS>::const_iterator worldPoint = worldPoses.begin();
     std::vector<cv::Mat>::const_iterator slamPoint = slamPoses.begin();
     for(unsigned i=0; worldPoint!=worldPoses.end() && slamPoint!=slamPoses.end() ; worldPoint++, slamPoint++, i++){

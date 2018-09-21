@@ -125,9 +125,9 @@ int main(int argc, char **argv)
     out.close();
 
     out.open(argv2 + "pos.txt");
-    out << "X,Y,Z,id" << std::endl;
+    out << "X,Y,Z,id,rayUsed" << std::endl;
     for(SignCoordinate& c : signPos){
-        out << c.p[0] << "," << c.p[1] << "," << c.p[2] << "," << c.signId << std::endl;
+        out << c.p[0] << "," << c.p[1] << "," << c.p[2] << "," << c.signId << ',' << c.rayUsed << std::endl;
     }
 
     out.close();

@@ -10,14 +10,15 @@
 struct SignCoordinate
 {
     cv::Vec3d p;
-    int signId;
-    SignCoordinate(const int &id, const double &posX, const double &posY, const double &posZ):
-        signId(id), p(posX, posY, posZ)
+    int signId = -1;
+    int rayUsed = -1;
+    SignCoordinate(const int &id, const double &posX, const double &posY, const double &posZ, const int &rayCount=-1):
+        signId(id), p(posX, posY, posZ), rayUsed(rayCount)
     {
 
     }
-    SignCoordinate(const int &id, const cv::Vec3d &pos):
-        signId(id), p(pos)
+    SignCoordinate(const int &id, const cv::Vec3d &pos, const int &rayCount=-1):
+        signId(id), p(pos), rayUsed(rayCount)
     {
 
     }
