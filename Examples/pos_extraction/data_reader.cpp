@@ -59,10 +59,11 @@ std::vector<BoundingBox> readBoundingBoxes(const std::string &BoundingBoxFilePat
         int w = atoi(cell.c_str());
         std::getline(lineStream, cell, ',');
         int h = atoi(cell.c_str());
+        std::getline(lineStream, cell, ',');
+        int signId = atoi(cell.c_str());
 
-        boundingBoxes.emplace_back(frame_number, id, x, y, w, h);
+        boundingBoxes.emplace_back(frame_number, id, x, y, w, h, signId);
     }
-
     return boundingBoxes;
 }
 

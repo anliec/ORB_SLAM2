@@ -23,7 +23,7 @@ std::vector<SignCoordinate> findSignCoordinates(const std::vector<SignPointer> &
         if(pose.empty()){
             continue;
         }
-        bySignRays[p.id].emplace_back(pose.at<float>(0, 3), pose.at<float>(1, 3), pose.at<float>(2, 3), p.v[0], p.v[1], p.v[2]);
+        bySignRays[p.signId].emplace_back(pose.at<float>(0, 3), pose.at<float>(1, 3), pose.at<float>(2, 3), p.v[0], p.v[1], p.v[2]);
     }
 
     std::vector<SignCoordinate> signPos;

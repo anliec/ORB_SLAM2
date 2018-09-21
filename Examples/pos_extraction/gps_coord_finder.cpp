@@ -38,14 +38,14 @@ cv::Mat findTransformToGlobalCoord(const std::vector<CoordGPS> &worldPoses, cons
     }
 
 
-    std::cout << slamPoints << std::endl;
-    std::cout << worldPoints << std::endl;
+//    std::cout << slamPoints << std::endl;
+//    std::cout << worldPoints << std::endl;
 
     Eigen::Matrix<double,Eigen::Dynamic,Eigen::Dynamic> transformation = Eigen::umeyama(slamPoints, worldPoints, true);
 
-    for(int i=0 ; i<slamPoints.cols() ; ++i){
-        std::cout << transformation * slamPoints.col(i).homogeneous() - worldPoints.col(i).homogeneous() << std::endl;
-    }
+//    for(int i=0 ; i<slamPoints.cols() ; ++i){
+//        std::cout << transformation * slamPoints.col(i).homogeneous() - worldPoints.col(i).homogeneous() << std::endl;
+//    }
 
     cv::Mat ret;
     cv::eigen2cv(transformation, ret);
@@ -53,25 +53,25 @@ cv::Mat findTransformToGlobalCoord(const std::vector<CoordGPS> &worldPoses, cons
 //    std::cout << std::endl << transformation << std::endl;
 //    std::cout << ret << std::endl << std::endl;
 
-    cv::Mat translation = ret(cv::Rect2i(3,0,1,3)).clone();
-    translation.convertTo(translation, CV_64F);
-    cv::Mat rotation = ret(cv::Rect2i(0,0,3,3)).clone();
-    rotation.convertTo(rotation, CV_64F);
+//    cv::Mat translation = ret(cv::Rect2i(3,0,1,3)).clone();
+//    translation.convertTo(translation, CV_64F);
+//    cv::Mat rotation = ret(cv::Rect2i(0,0,3,3)).clone();
+//    rotation.convertTo(rotation, CV_64F);
 
 //    std::cout << translation << std::endl;
 //    std::cout << rotation << std::endl;
-    i = 0;
-    for(const cv::Mat &slamCoord : slamPoses){
-        if(slamCoord.empty()) continue;
-        cv::Mat p = slamCoord(cv::Rect2i(3,0,1,3)).clone();
-        p.convertTo(p, CV_64F);
-        cv::Vec3d wp;
-        wp[0] = worldPoses[i].lat;
-        wp[1] = worldPoses[i].lon;
-        wp[2] = worldPoses[i].alt;
-        std::cout << (rotation * p) + translation - cv::Mat(wp) << std::endl;
-        i++;
-    }
+//    i = 0;
+//    for(const cv::Mat &slamCoord : slamPoses){
+//        if(slamCoord.empty()) continue;
+//        cv::Mat p = slamCoord(cv::Rect2i(3,0,1,3)).clone();
+//        p.convertTo(p, CV_64F);
+//        cv::Vec3d wp;
+//        wp[0] = worldPoses[i].lat;
+//        wp[1] = worldPoses[i].lon;
+//        wp[2] = worldPoses[i].alt;
+//        std::cout << (rotation * p) + translation - cv::Mat(wp) << std::endl;
+//        i++;
+//    }
 
     return ret;
 }

@@ -21,7 +21,7 @@ std::vector<UndistortedBoundingBox> undistordBoundingBoxes(const std::vector<Bou
     for( ; p!=undistordedPoints.end() && b!=bb.end() ; p++, b++){
         cv::Point2f& ul = *p;
         cv::Point2f& dr = *(++p);
-        undistortedBoundingBoxes.emplace_back(b->frameNumber, b->id, ul.x, ul.y, dr.x - ul.x, dr.y - ul.y);
+        undistortedBoundingBoxes.emplace_back(b->frameNumber, b->frameName, ul.x, ul.y, dr.x - ul.x, dr.y - ul.y, b->signId);
     }
 
     return undistortedBoundingBoxes;

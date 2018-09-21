@@ -28,14 +28,15 @@ std::vector<CoordGPS> readCoordinates(const std::string& coordinateFilePath, con
 
 struct BoundingBox{
     int frameNumber;
-    int id;
+    int frameName;
     int x;
     int y;
     int w;
     int h;
+    int signId;
 
-    BoundingBox(const int& frame, const int& id, const int& x, const int& y, const int& w, const int& h):
-        frameNumber(frame), id(id), x(x), y(y), w(w), h(h)
+    BoundingBox(const int& frame, const int& id, const int& x, const int& y, const int& w, const int& h, const int& signId):
+        frameNumber(frame), frameName(id), x(x), y(y), w(w), h(h), signId(signId)
     {
 
     }

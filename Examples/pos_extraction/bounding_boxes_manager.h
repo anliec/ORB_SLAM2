@@ -8,14 +8,16 @@
 
 struct UndistortedBoundingBox{
     int frameNumber;
-    int id;
+    int frameName;
     double x;
     double y;
     double w;
     double h;
+    int signId;
 
-    UndistortedBoundingBox(const int& frame=0, const int& id=0, const double& x=0.0, const double& y=0.0, const double& w=0.0, const double& h=0.0):
-        frameNumber(frame), id(id), x(x), y(y), w(w), h(h)
+
+    UndistortedBoundingBox(const int& frame=0, const int& id=0, const double& x=0.0, const double& y=0.0, const double& w=0.0, const double& h=0.0, const int& signId=-1):
+        frameNumber(frame), frameName(id), x(x), y(y), w(w), h(h), signId(signId)
     {
 
     }
@@ -25,23 +27,24 @@ std::vector<UndistortedBoundingBox> undistordBoundingBoxes(const std::vector<Bou
 
 struct SignPointer{
     int frameNumber;
-    int id;
+    int frameName;
+    int signId;
     cv::Vec<float,4> v;
 
     SignPointer():
-        frameNumber(-1), id(-1)
+        frameNumber(-1), frameName(-1), signId(-1)
     {
         v = cv::Vec<float,4>(-1.0,-1.0,-1.0,-1.0);
     }
 
-    SignPointer(const int& frame, const int& id, const double& x, const double& y):
-        frameNumber(frame), id(id)
+    SignPointer(const int& frame, const int& id, const double& x, const double& y, const int &signId):
+        frameNumber(frame), frameName(id), signId(signId)
     {
         v = cv::Vec<float,4>(x,y,1.0,1.0);
     }
 
     SignPointer(const UndistortedBoundingBox& bb):
-        frameNumber(bb.frameNumber), id(bb.id)
+        frameNumber(bb.frameNumber), frameName(bb.frameName), signId(bb.signId)
     {
         double x = bb.x + (bb.w / 2.0);
         double y = bb.y + (bb.h / 2.0);
